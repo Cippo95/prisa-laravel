@@ -11,6 +11,8 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    // public $primaryKey = 'registration_number';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -40,4 +42,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // public function student()
+    // {
+    //     return $this->hasOne(Student::class);
+    // }
+
+
+    public $timestamps = false;
 }
