@@ -16,12 +16,8 @@ class Course extends Model
         return $this->hasMany(Project::class);
     }
 
-    public function professors() {
-        return $this->belongsToMany(Professor::class);
-    }
-
-    public function students() {
-        return $this->belongsToMany(Student::class);
+    public function users() {
+        return $this->belongsToMany(User::class);
     }
 
     public $timestamps = false;

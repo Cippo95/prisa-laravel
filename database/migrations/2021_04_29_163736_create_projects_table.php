@@ -19,8 +19,8 @@ class CreateProjectsTable extends Migration
             //relationship 1:N with students
             $table->unsignedbigInteger('student');
             $table->foreign('student')
-                ->references('registration_number_s')
-                ->on('students')
+                ->references('id')
+                ->on('users')
                 ->onDelete('cascade');
             //relationship 1:N with courses
             $table->unsignedbigInteger('course');

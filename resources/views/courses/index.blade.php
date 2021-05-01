@@ -1,16 +1,13 @@
-{{-- student welcome page --}}
 @extends('layouts.app')
 
 @section('content')
-{{-- <div class="flex-center position-ref full-height">
-</div> --}}
-
-{{-- Qui dovrò mostrare i corsi dello studente --}}
+<div style="text-align:center">
 <ul>
     @foreach($courses as $course)
     <li>
         {{ $course->name }}
-    <li>
+    </li>
+    @endforeach
 </ul>
-@endforeach
+</div>
 @endsection
