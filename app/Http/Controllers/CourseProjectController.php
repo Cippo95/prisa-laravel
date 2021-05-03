@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Project;
 
-class ProjectController extends Controller
+class CourseProjectController extends Controller
 {
-    public function index()
+    public function index($id)
     {
-        $projects = Project::where('student', '1')->get();
+        $projects = Project::where('course', $id)->get();
         return view('projects.index',['projects'=>$projects]);
     }
 }

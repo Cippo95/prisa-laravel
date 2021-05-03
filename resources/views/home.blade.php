@@ -2,16 +2,7 @@
 
 @section('content')
     <div style="text-align:center">
-        <img src="img/unife.png" alt="logo unife" style= "width: 15%; height: 15%;">
-        <br><br><br>
-        <h1>Benvenuti su PRISA!</h1>
-        <br>
-        <p>
-            <strong>PRISA</strong> è il mio <strong>PR</strong>ogetto d'<strong>I</strong>ngegneria del 
-            <strong>S</strong>oftware <strong>A</strong>vanzata. <br>
-            Una applicazione web per la gestione dei progetti universitari.
-        </p>
-        <br>
+        @include('banner')
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8">
@@ -28,9 +19,9 @@
                             {{ __('Sei loggato!') }}
                             <br>
                                 @if (Auth::user()->role == '2')
-                                    <a href="/projects">Risulti uno studente: clicca qui per controllare i tuoi progetti.</a>
+                                    <a href="/users/{{ Auth::user()->id }}/projects">Risulti uno studente: clicca qui per controllare i tuoi progetti.</a>
                                 @elseif(Auth::user()->role == '1')
-                                    <a href="">Risulti un docente: clicca qui per controllare i tuoi corsi.</a>
+                                    <a href="/users/{{ Auth::user()->id }}/courses">Risulti un docente: clicca qui per controllare i tuoi corsi.</a>
                                 @elseif(Auth::user()->role == '0')
                                     {{ 'Risulti un amministratore!' }}
                                 @endif

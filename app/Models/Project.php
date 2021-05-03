@@ -19,5 +19,11 @@ class Project extends Model
         return $this->belongsTo(Course::class);
     }
 
+    public function attachments()
+    {
+        return $this->hasMany(Attachment::class);
+    }
+
+
     public $timestamps = false;
 }
