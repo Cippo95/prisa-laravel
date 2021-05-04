@@ -13,27 +13,31 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-//   });
-
-// Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 Auth::routes();
-//Route to home after login
+
+//Route to home triggers login
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->middleware('auth');
-//Route to home
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
+
+//Route to home after login
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->middleware('auth');
+
 //Route to user's projects
-Route::get('/users/{user}/projects/', [App\Http\Controllers\UserProjectController::class, 'index'])->name('userProjects');
+Route::get('/users/{user}/projects/', [App\Http\Controllers\UserProjectController::class, 'index'])->middleware('auth')->name('userProjects');
+
 //Route to create a new project
-Route::get('/users/{user}/projects/create', [App\Http\Controllers\UserProjectController::class, 'create']);
+Route::get('/users/{user}/projects/create', [App\Http\Controllers\UserProjectController::class, 'create'])->middleware('auth');
+
 //Route to post a new project
-Route::post('/users/{user}/projects', [App\Http\Controllers\UserProjectController::class, 'store']);
+Route::post('/users/{user}/projects', [App\Http\Controllers\UserProjectController::class, 'store'])->middleware('auth');
+
 //Route to user's courses
-Route::get('/users/{user}/courses/', [App\Http\Controllers\UserCourseController::class, 'index']);
+Route::get('/users/{user}/courses/', [App\Http\Controllers\UserCourseController::class, 'index'])->middleware('auth');
+
 //Route to projects related to courses
-Route::get('/courses/{course}/projects', [App\Http\Controllers\CourseProjectController::class, 'index']);
+Route::get('/courses/{course}/projects', [App\Http\Controllers\CourseProjectController::class, 'index'])->middleware('auth');
+
 //Route to attachments
-Route::get('/projects/{project}/attachments', [App\Http\Controllers\ProjectAttachmentController::class, 'index'])->name('attachments');
+Route::get('/projects/{project}/attachments', [App\Http\Controllers\ProjectAttachmentController::class, 'index'])->middleware('auth')->name('attachments');
+
 //Route to attachments creation
-Route::post('/attachments', [App\Http\Controllers\ProjectAttachmentController::class, 'store'])->name('attachmentCreate');
+Route::post('/users/{user}/projects/{project}/attachments', [App\Http\Controllers\ProjectAttachmentController::class, 'store'])->middleware('auth');

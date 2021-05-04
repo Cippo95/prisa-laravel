@@ -17,14 +17,14 @@ class CreateProjectsTable extends Migration
             $table->id();
             //$table->timestamps();
             //relationship 1:N with students
-            $table->unsignedbigInteger('student');
-            $table->foreign('student')
+            $table->unsignedbigInteger('student_id');
+            $table->foreign('student_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
             //relationship 1:N with courses
-            $table->unsignedbigInteger('course');
-            $table->foreign('course')
+            $table->unsignedbigInteger('course_id');
+            $table->foreign('course_id')
                 ->references('id')
                 ->on('courses')
                 ->onDelete('cascade');

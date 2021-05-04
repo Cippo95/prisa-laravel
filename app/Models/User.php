@@ -48,6 +48,11 @@ class User extends Authenticatable
         return $this->hasMany(Project::class);
     }
 
+    public function attachments()
+    {
+        return $this->hasMany(Attachment::class);
+    }
+
     public function courses() {
         return $this->belongsToMany(Course::class);
     }

@@ -2,7 +2,7 @@
 
 @section('content')
 <div style="text-align:center">
-    @if(Auth::user()->role==2)
+    {{-- @if(Auth::user()->role==2)
     <h1>Seleziona il corso per cui vuoi fare un nuovo progetto:</h1>
     <form action="/users/{{ Auth::user()->id }}/projects/create" method="post">
         @csrf
@@ -12,7 +12,7 @@
             @endforeach
             <input type="submit" value="Submit">
     </form>
-    @elseif(Auth::user()->role==1)
+    @elseif(Auth::user()->role==1) --}}
     <h1>Seleziona il corso di cui vuoi controllare i progetti:</h1>
     <ul>
         @foreach($courses as $course)
@@ -21,6 +21,6 @@
         </li>
         @endforeach
     </ul>
-    @endif
+    {{-- @endif --}}
 </div>
 @endsection

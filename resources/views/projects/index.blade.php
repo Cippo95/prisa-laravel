@@ -1,28 +1,42 @@
 @extends('layouts.app')
-
 @section('content')
 <div style="text-align:center">
     @if(Auth::user()->role==2)
-        <h1>Progetti</h1>
-            <a href="/users/{{ Auth::user()->id }}/projects/create">Clicca qui per aggiungere un nuovo progetto</a>
-            <ul>
+    <h1>I tuoi progetti:</h1>
+    <a href="\home">Torna alla home</a>
+    <br><br>
+    <p>Clicca su uno dei progetti per accedere ai tuoi allegati</p>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <a href="/users/{{ Auth::user()->id }}/projects/create">Clicca qui per aggiungere un nuovo progetto</a>
+                    </div>
+                </div>
+                <br>
                 @forelse($projects as $project)
-                    <li>
-                        {{ $project->id }} {{ $project->student }} {{ $project->course }} 
-                        <a href="/projects/{{ $project->id }}/attachments">Mostra allegati</a>
-                    </li>
+                <div class="card">
+                        <div class="card-body">
+                            <a href="/projects/{{ $project->id }}/attachments">
+                                Corso: {{ $project->course->name }} - Numero progetto: {{ $project->id }}
+                            </a>
+                        </div>
+                    </div>
                 @empty
                     <li>
                         Non ci sono progetti da mostrare.
                     </li>
                 @endforelse
-            </ul>
+            </div>
+
+            {{-- </ul> --}}
     @elseif(Auth::user()->role==1)
-    <h1>Progetti</h1>
+    <h1>Progetti degli studenti del corso:</h1>
             <ul>
                 @forelse($projects as $project)
                     <li>
-                        {{ $project->id }} {{ $project->student }} {{ $project->course }} 
+                        Corso: {{ $project->course }} - Numero progetto: {{ $project->id }} - Studente: {{ $project->student }}- Matricola - {{ $project->student }} 
                         <a href="/projects/{{ $project->id }}/attachments">Mostra allegati</a>
                     </li>
                 @empty

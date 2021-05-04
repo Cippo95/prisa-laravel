@@ -40,15 +40,15 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            @if (Route::has('login'))
+                            {{-- @if (Route::has('login'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
-                            @endif
+                            @endif --}}
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Registrati') }}</a>
                                 </li>
                             @endif
                         @else
@@ -74,7 +74,10 @@
                 </div>
             </div>
         </nav>
-
+        <br>
+        <div style="text-align:center">
+            <img src="/img/unife.png" alt="logo unife" style= "width: 12%; height: 12%;">
+        </div>
         <main class="py-4">
             @yield('content')
         </main>

@@ -26,11 +26,7 @@ class DatabaseSeeder extends Seeder
         $user2 = User::create(['name' => $faker->name,'email' => 'professor@unife.it', 'password' => \Hash::make('12345678'), 'role' => 1]);
         // Let's make a course
         $course1 = Course::create(['name' => $faker->name]);
-        // Let's make a project
-        $project1 = Project::create([
-            'student' => $user1->id,
-            'course' => $course1->id
-        ]);
+        
         $course1->users()->attach($user1);
         $course1->users()->attach($user2);
     }
