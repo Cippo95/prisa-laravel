@@ -5,7 +5,7 @@
     <h1>I tuoi progetti:</h1>
     <a href="\home">Torna alla home</a>
     <br><br>
-    <p>Clicca su uno dei progetti per accedere ai tuoi allegati</p>
+    <p>Clicca su uno dei progetti per accedere ai messaggi</p>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -22,29 +22,39 @@
                                 Corso: {{ $project->course->name }} - Numero progetto: {{ $project->id }}
                             </a>
                         </div>
-                    </div>
+                </div>
                 @empty
                     <li>
                         Non ci sono progetti da mostrare.
                     </li>
                 @endforelse
             </div>
-
-            {{-- </ul> --}}
+        </div>
+    </div>
     @elseif(Auth::user()->role==1)
     <h1>Progetti degli studenti del corso:</h1>
-            <ul>
+    <a href="/users/{{ Auth::user()->id }}/courses/">Torna ai corsi</a>
+    <br><br>
+    <p>Clicca su uno dei progetti per accedere ai messaggi</p>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
                 @forelse($projects as $project)
-                    <li>
-                        Corso: {{ $project->course }} - Numero progetto: {{ $project->id }} - Studente: {{ $project->student }}- Matricola - {{ $project->student }} 
-                        <a href="/projects/{{ $project->id }}/attachments">Mostra allegati</a>
-                    </li>
+                <div class="card">
+                        <div class="card-body">
+                            <a href="/projects/{{ $project->id }}/attachments">
+                                Corso: {{ $project->course->name }} - Numero progetto: {{ $project->id }}
+                            </a>
+                        </div>
+                </div>
                 @empty
                     <li>
                         Non ci sono progetti da mostrare.
                     </li>
                 @endforelse
-            </ul>
-    @endforelse
+            </div>
+        </div>
+    </div>
+    @endif
 </div>
 @endsection

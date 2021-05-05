@@ -9,6 +9,13 @@ class Attachment extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'project_id',
+        'user_id',
+        'message',
+        'file',
+    ];
+
     public function project()
     {
         return $this->belongsTo(Project::class);

@@ -40,4 +40,10 @@ Route::get('/courses/{course}/projects', [App\Http\Controllers\CourseProjectCont
 Route::get('/projects/{project}/attachments', [App\Http\Controllers\ProjectAttachmentController::class, 'index'])->middleware('auth')->name('attachments');
 
 //Route to attachments creation
-Route::post('/users/{user}/projects/{project}/attachments', [App\Http\Controllers\ProjectAttachmentController::class, 'store'])->middleware('auth');
+Route::post('/users/{user}/projects/{project}/attachments', [App\Http\Controllers\UserProjectAttachmentController::class, 'store'])->middleware('auth');
+
+//Route to admin creating new professors
+Route::get('/admin/professor/create',[App\Http\Controllers\UserController::class, 'create'])->middleware('auth');
+
+//Route to admin creating new courses
+Route::get('/admin/course/create',[App\Http\Controllers\CourseController::class, 'create'])->middleware('auth');

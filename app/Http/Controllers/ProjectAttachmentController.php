@@ -3,26 +3,24 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Project;
 use App\Models\Attachment;
+use Illuminate\Support\Facades\Gate;
+
 
 class ProjectAttachmentController extends Controller
 {
     public function index($id)
     {
-        $attachments = Attachment::where('project_id', $id)->get();
-        return view('attachments.index',['attachments'=>$attachments,'project_id' => $id]);
+        if(Gate::allows('can-see-attachments',$id))
+        {
+            $attachments = Attachment::where('project_id', $id)->get();
+            $project = Project::where('id', $id)->get();
+            return view('attachments.index',['attachments'=>$attachments, 'project' => $project]);
+        }
+        else
+        {
+            abort(403);
+        }
     }
-
-    public function store($user,$project){
-        $data=request()->validate([
-            'message'=>'required'
-        ]);
-        $attachment = new Attachment();
-        $attachment->project_id = $project;
-        $attachment->user_id = $user;
-        $attachment->message = request('message');
-        $attachment->file = '101';
-        $attachment->save();
-        return redirect()->back();        
-      }
 }

@@ -76,7 +76,7 @@
         </nav>
         <br>
         <div style="text-align:center">
-            <img src="/img/unife.png" alt="logo unife" style= "width: 12%; height: 12%;">
+            <img src="/img/unife.png" class="img-fluid" style="width: 12%; min-width: 200px;"alt="logo unife" >
         </div>
         <main class="py-4">
             @yield('content')

@@ -2,8 +2,13 @@
 @section('content')
 <div style="text-align:center">
     <h1>Messaggi del progetto:</h1>
-    <a href="/users/{{ Auth::user()->id }}/projects/">Torna ai progetti</a>
+    @if(Auth::user()->role=='2')
+        <a href="/users/{{ Auth::user()->id }}/projects/">Torna ai tuoi progetti</a>
+    @elseif(Auth::user()->role=='1')
+        <a href="/courses/{{ $project[0]->course_id }}/projects">Torna ai progetti del corso</a>
+    @endif
     <br><br>
+    <p>Progetto numero: {{ $project[0]->id }} - Corso: {{ $project[0]->course->name }}</p>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -18,7 +23,7 @@
                 </div>
                 @endforeach
                 <br>
-                <form action="/users/{{ Auth::user()->id }}/projects/{{ $project_id }}/attachments" method="post">
+                <form action="/users/{{ Auth::user()->id }}/projects/{{ $project[0]->id }}/attachments" method="post">
                     @csrf
                     <label for="message">Aggiungi un messaggio:</label>
                     <br>

@@ -23,7 +23,11 @@
                                 @elseif(Auth::user()->role == '1')
                                     <a href="/users/{{ Auth::user()->id }}/courses">Risulti un docente: clicca qui per controllare i tuoi corsi.</a>
                                 @elseif(Auth::user()->role == '0')
-                                    {{ 'Risulti un amministratore!' }}
+                                    {{ 'Risulti un amministratore!' }} 
+                                    <br>
+                                    <a href="/admin/professor/create">Clicca qui per aggiungere nuovi docenti</a><br>
+                                    <a href="/admin/course/create">Clicca qui per aggiungere nuovi corsi</a>
+                                    {{-- Altri eventuali poteri dell'amministratore da decidere... --}}
                                 @endif
                         </div>
                     </div>

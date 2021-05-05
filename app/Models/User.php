@@ -11,8 +11,6 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    // public $primaryKey = 'registration_number';
-
     /**
      * The attributes that are mass assignable.
      *
@@ -56,7 +54,4 @@ class User extends Authenticatable
     public function courses() {
         return $this->belongsToMany(Course::class);
     }
-
-
-    public $timestamps = false;
 }

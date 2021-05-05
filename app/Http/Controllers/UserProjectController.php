@@ -13,7 +13,7 @@ class UserProjectController extends Controller
 {
     public function index($id)
     {
-        if(Gate::allows('user-projects',$id)){
+        if(Gate::allows('user-owned',$id)){
             $projects = Project::where('student_id', $id)->get();
             return view('projects.index',['projects'=>$projects]);
         }
@@ -24,10 +24,16 @@ class UserProjectController extends Controller
     }
 
     public function create($user){
-        $userCourses = Course::whereHas('users', function($query) use ($user){
-            return $query->where('id', $user);
-        })->get();
-        return view('projects.create',['user'=>$user,'userCourses'=>$userCourses]);
+        if(Gate::allows('user-owned',$user)){
+            $userCourses = Course::whereHas('users', function($query) use ($user){
+                return $query->where('id', $user);
+            })->get();
+            return view('projects.create',['user'=>$user,'userCourses'=>$userCourses]);
+        }
+        else
+        {
+            abort(403);
+        }
     }
 
     public function store($user){
@@ -43,7 +49,7 @@ class UserProjectController extends Controller
         $attachment->project_id = $project->id;
         $attachment->user_id = $user;
         $attachment->message = request('message');
-        $attachment->file = '101';
+        // $attachment->file = request('file');
         $attachment->save();
         return redirect()->route('attachments',['project'=>$project->id]);
       }

@@ -23,7 +23,4 @@ class Project extends Model
     {
         return $this->hasMany(Attachment::class);
     }
-
-
-    public $timestamps = false;
 }
