@@ -14,7 +14,7 @@ class UserProjectController extends Controller
     public function index($id)
     {
         if(Gate::allows('user-owned',$id)){
-            $projects = Project::where('student_id', $id)->get();
+            $projects = Project::where('student_id', $id)->orderBy('status','desc')->get();
             return view('projects.index',['projects'=>$projects]);
         }
         else
@@ -44,12 +44,12 @@ class UserProjectController extends Controller
         $project = new Project();
         $project->student_id = $user;
         $project->course_id = request('course');
+        $project->status = 1;
         $project->save();
         $attachment = new Attachment();
         $attachment->project_id = $project->id;
         $attachment->user_id = $user;
         $attachment->message = request('message');
-        // $attachment->file = request('file');
         $attachment->save();
         return redirect()->route('attachments',['project'=>$project->id]);
       }

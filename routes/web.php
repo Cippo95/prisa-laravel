@@ -1,6 +1,26 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+// /home
+use App\Http\Controllers\HomeController;
+// /users/{user}
+use App\Http\Controllers\UserProjectController;
+// nested resource /users/{user}/courses/{course}
+use App\Http\Controllers\UserCourseController;
+// nested resource /courses/{course}/projects/{project}
+use App\Http\Controllers\CourseProjectController;
+// nested resource /projects/{project}/attachments/{attachment}
+use App\Http\Controllers\ProjectAttachmentController;
+// nested resource /users/{user}/projects/{project}/attachments/{attachment}
+use App\Http\Controllers\UserProjectAttachmentController;
+// /projects/{project}
+use App\Http\Controllers\ProjectController;
+// /users/{user}
+use App\Http\Controllers\UserController;
+// /courses/{course}
+use App\Http\Controllers\CourseController;
+// /courses/{course}/users/{user}
+use App\Http\Controllers\CourseUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,35 +35,62 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-//Route to home triggers login
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->middleware('auth');
+//Route to root, it triggers login and redirects home
+Route::get('/', [HomeController::class, 'index'])->middleware('auth');
 
 //Route to home after login
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->middleware('auth');
+Route::get('/home', [HomeController::class, 'index'])->middleware('auth');
 
-//Route to user's projects
-Route::get('/users/{user}/projects/', [App\Http\Controllers\UserProjectController::class, 'index'])->middleware('auth')->name('userProjects');
+//Route to user's projects, user is a student
+Route::get('/users/{user}/projects/', [UserProjectController::class, 'index'])->middleware('auth')->name('userProjects');
 
 //Route to create a new project
-Route::get('/users/{user}/projects/create', [App\Http\Controllers\UserProjectController::class, 'create'])->middleware('auth');
+Route::get('/users/{user}/projects/create', [UserProjectController::class, 'create'])->middleware('auth');
 
 //Route to post a new project
-Route::post('/users/{user}/projects', [App\Http\Controllers\UserProjectController::class, 'store'])->middleware('auth');
+Route::post('/users/{user}/projects', [UserProjectController::class, 'store'])->middleware('auth');
 
-//Route to user's courses
-Route::get('/users/{user}/courses/', [App\Http\Controllers\UserCourseController::class, 'index'])->middleware('auth');
+//Route to user's courses, user is a professor
+Route::get('/users/{user}/courses/', [UserCourseController::class, 'index'])->middleware('auth');
+
+//Route to create a row to the pivot table course_user, this is to chose a course that a student follows
+Route::get('/users/{user}/courses/create', [UserCourseController::class, 'create'])->middleware('auth');
+
+//Route to store the created row to the pivot table course_user, this is to chose a course that a student follows
+Route::post('/users/{user}/courses', [UserCourseController::class, 'store'])->middleware('auth');
 
 //Route to projects related to courses
-Route::get('/courses/{course}/projects', [App\Http\Controllers\CourseProjectController::class, 'index'])->middleware('auth');
+Route::get('/courses/{course}/projects', [CourseProjectController::class, 'index'])->middleware('auth');
 
 //Route to attachments
-Route::get('/projects/{project}/attachments', [App\Http\Controllers\ProjectAttachmentController::class, 'index'])->middleware('auth')->name('attachments');
+Route::get('/projects/{project}/attachments', [ProjectAttachmentController::class, 'index'])->middleware('auth')->name('attachments');
 
 //Route to attachments creation
-Route::post('/users/{user}/projects/{project}/attachments', [App\Http\Controllers\UserProjectAttachmentController::class, 'store'])->middleware('auth');
+Route::post('/users/{user}/projects/{project}/attachments', [UserProjectAttachmentController::class, 'store'])->middleware('auth');
 
-//Route to admin creating new professors
-Route::get('/admin/professor/create',[App\Http\Controllers\UserController::class, 'create'])->middleware('auth');
+//Route to change project status
+Route::post('/projects/{project}',[ProjectController::class, 'update'])->middleware('auth');
 
-//Route to admin creating new courses
-Route::get('/admin/course/create',[App\Http\Controllers\CourseController::class, 'create'])->middleware('auth');
+//Routes for admin CRUD of users and courses
+Route::resources(['users' => UserController::class,'courses' => CourseController::class]);
+
+//Route to delete a user, necessary since delete and updates aren't possible in html forms
+Route::get('/users/{user}/delete', [UserController::class,'destroy'])->middleware('auth');
+
+//Route to delete a course, necessary since delete and updates aren't possible in html forms
+Route::get('/courses/{course}/delete', [CourseController::class,'destroy'])->middleware('auth');
+
+//Route to user update, only role is updatable
+Route::post('/users/{user}', [UserController::class,'update'])->middleware('auth');
+
+//Route to users of a course, but only professors as defined in the controller
+Route::get('/courses/{course}/users/', [CourseUserController::class,'index'])->middleware('auth');
+
+//Route to delete a user of a course, again only professors as defined in the controller
+Route::get('/courses/{course}/users/{user}/delete', [CourseUserController::class,'destroy'])->middleware('auth');
+
+//Route to create a row in the pivot table course_user, this is to chose the professor for a course
+Route::get('/courses/{course}/users/create', [CourseUserController::class,'create'])->middleware('auth');
+
+//Route to post a row in the pivot table course_user, this is assigning a course to a professor
+Route::post('/courses/{course}/users/', [CourseUserController::class,'store'])->middleware('auth');

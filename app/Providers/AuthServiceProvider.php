@@ -27,7 +27,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
         
-        //students can see only projects they own
+        //students stuff they own
         Gate::define('user-owned', function($user,$id){
             return $user->id==$id;
         });

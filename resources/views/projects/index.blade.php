@@ -19,7 +19,12 @@
                 <div class="card">
                         <div class="card-body">
                             <a href="/projects/{{ $project->id }}/attachments">
-                                Corso: {{ $project->course->name }} - Numero progetto: {{ $project->id }}
+                                Corso: {{ $project->course->name }} - Numero progetto: {{ $project->id }} - Stato:
+                                @if($project->status==1)
+                                    {{ 'Attivo' }}
+                                @else
+                                    {{ 'Concluso' }}
+                                @endif
                             </a>
                         </div>
                 </div>
@@ -43,7 +48,12 @@
                 <div class="card">
                         <div class="card-body">
                             <a href="/projects/{{ $project->id }}/attachments">
-                                Corso: {{ $project->course->name }} - Numero progetto: {{ $project->id }}
+                                Corso: {{ $project->course->name }} - Numero progetto: {{ $project->id }} - Stato:
+                                @if($project->status==1)
+                                    {{ 'Attivo' }}
+                                @else
+                                    {{ 'Concluso' }}
+                                @endif
                             </a>
                         </div>
                 </div>
