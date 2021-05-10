@@ -15,20 +15,26 @@
                                     {{ session('status') }}
                                 </div>
                             @endif
-        
-                            {{ __('Sei loggato!') }}
-                            <br>
                                 @if (Auth::user()->role == '2')
-                                    <a href="/users/{{ Auth::user()->id }}/projects">Risulti uno studente: clicca qui per controllare i tuoi progetti.</a><br>
-                                    <a href="/users/{{ Auth::user()->id }}/courses/create">Risulti uno studente: clicca qui per aggiungere un corso che segui.</a>
+                                    {{ __('Benvenuto studente!') }}
+                                    <br><br>
+                                    <table class="table table-bordered">
+                                        <tr><td><a href="/users/{{ Auth::user()->id }}/projects">Clicca qui per controllare i tuoi progetti</a></td></tr>   
+                                        <tr><td><a href="/users/{{ Auth::user()->id }}/courses">Clicca qui per controllare i tuoi corsi</a></td></tr>   
+                                    </table>
                                 @elseif(Auth::user()->role == '1')
-                                    <a href="/users/{{ Auth::user()->id }}/courses">Risulti un docente: clicca qui per controllare i tuoi corsi.</a>
+                                    {{ __('Benvenuto docente!') }}
+                                    <br><br>
+                                    <table class="table table-bordered">
+                                    <tr><td><a href="/users/{{ Auth::user()->id }}/courses">Clicca qui per controllare i tuoi corsi</a></td></tr>
+                                    </table>
                                 @elseif(Auth::user()->role == '0')
-                                    {{ 'Risulti un amministratore!' }} 
-                                    <br>
-                                    <a href="/users">Clicca qui per vedere gli utenti</a><br>
-                                    <a href="/courses">Clicca qui per vedere i corsi</a>
-                                    {{-- Altri eventuali poteri dell'amministratore da decidere... --}}
+                                    {{ __('Benvenuto amministratore!') }}
+                                    <br><br>
+                                    <table class="table table-bordered">
+                                        <tr><td><a href="/users">Clicca qui per vedere gli utenti</a></td></tr>
+                                        <tr><td><a href="/courses">Clicca qui per vedere i corsi</a></td></tr>
+                                    </table>
                                 @endif
                         </div>
                     </div>

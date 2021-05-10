@@ -8,13 +8,16 @@
                     <a href="/">Clicca qui per tornare alla home</a>
                     <br><br>
                     <p>Elenco degli utenti registrati:</p>
-                    <table border="1" style="margin: 0px auto;"> 
+                    <table class="table table-bordered" style="text-align:left">
+                    <thead class="thead-light">                    
                     <tr>
-                        <td>ID</td>
-                        <td>Nome</td>
-                        <td>Ruolo</td>
-                        <td>Operazioni</td>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Ruolo</th>
+                        <th>Modifica Ruolo</th>
+                        <th>Elimina</th>
                     </tr>
+                    </thead>
                     @foreach ($users as $user)
                     <tr>
                         <td>{{ $user->id }}</td>
@@ -25,7 +28,12 @@
                             @elseif ( $user->role ==0)Amministratore
                             @endif
                         </td>
-                        <td><a href= "/users/{{ $user->id }}/edit" > Modifica</a> - <a href= "/users/{{ $user->id }}/delete">Cancella</a></td>
+                        <td><a href= "/users/{{ $user->id }}/edit">Modifica Ruolo</a></td>
+                        <td><form action="/users/{{ $user->id }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <input type="submit" class="btn btn-danger" value="Elimina">
+                        </form></td>
                     </tr>
                     @endforeach
                     </table>

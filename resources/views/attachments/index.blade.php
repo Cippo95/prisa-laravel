@@ -13,9 +13,10 @@
     @if(Auth::user()->role==1 and $project[0]->status==1)
     <form action="/projects/{{ $project[0]->id }}" method="POST">
         @csrf
+        @method('PUT')
         <input type="hidden" name="concludi" value=0>
         Per definire il progetto come concluso clicca qui: 
-        <button type="submit">Concludi Progetto</button>
+        <button type="submit" class="btn btn-info">Concludi Progetto</button>
     </form>
     @endif
 
@@ -40,8 +41,8 @@
                         <label for="message">Aggiungi un messaggio:</label>
                         <br>
                         <textarea name="message" id="message" class="container" rows=10 placeholder="Scrivi un messaggio..."></textarea>
-                        <br>
-                        <input type="submit" value="Invia">
+                        <br><br>
+                        <input type="submit" class="btn btn-primary" value="Invia">
                     </form>
                     <p style="color:red">@error('message'){{ $message="Il messaggio non può essere vuoto." }}@enderror</p>
                 @else

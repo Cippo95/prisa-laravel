@@ -1,23 +1,40 @@
 @extends('layouts.app')
 @section('content')
 <div style="text-align:center">
-    <h1>Docenti del corso</h1>
-    <a href="/courses/">Clicca qui per tornare indietro.</a><br><br>
-    <p>Elenco dei docenti del corso</p>
-    <a href="/courses/{{ $course }}/users/create">Clicca qui per aggiungere docenti al corso</a>
-    <table border="1" style="margin: 0px auto;"> 
-        <tr>
-            <td>ID</td>
-            <td>Docente</td>
-            <td>Rimuovi</td>
-        </tr>
-        @forelse($users as $user)
-        <tr>
-            <td>{{ $user->id }}</td>
-            <td>{{ $user->name }}</td>
-            <td><a href= "/courses/{{ $course }}/users/{{ $user->id }}/delete">Rimuovi</a></td>
-        </tr>
-        @endforeach
-    </table>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h1>Docenti del corso</h1>
+                <a href="/courses/">Clicca qui per tornare indietro.</a><br><br>
+                <p>Elenco dei docenti del corso</p>
+                <a href="/courses/{{ $course }}/users/create">Clicca qui per aggiungere docenti al corso</a>
+                <br><br>
+                <table class="table table-bordered" style="text-align:left">
+                    <thead class="thead-light"> 
+                    <tr>   
+                        <th>ID</th>
+                        <th>Docente</th>
+                        <th>Elimina</th>
+                    </tr>
+                    @forelse($users as $user)
+                    <tr>
+                        <td>{{ $user->id }}</td>
+                        <td>{{ $user->name }}</td>
+                        <td><form action="/courses/{{ $course }}/users/{{ $user->id }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <input type="submit" class="btn btn-danger" value="Elimina">
+                        </form></td>
+                    </tr>
+                    @empty
+                    <li>
+                        Non ci sono docenti da mostrare.
+                    </li>
+                    <br>
+                    @endforelse
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection

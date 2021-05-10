@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -18,6 +19,9 @@ class UserController extends Controller
      */
     public function index()
     {
+        if(!Gate::allows('admin')){
+            abort(403);
+        }
         $users=User::all();
         return view('users.index', compact('users'));
     }
@@ -29,7 +33,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        abort(404);
     }
 
     /**
@@ -40,7 +44,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+            abort(404);
     }
 
     /**
@@ -51,7 +55,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+            abort(404);
     }
 
     /**
@@ -62,6 +66,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        if(!Gate::allows('admin')){
+            abort(403);
+        }
         $user=User::find($id);
         return view("users.edit", compact('user'));
     }
@@ -75,6 +82,9 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(!Gate::allows('admin')){
+            abort(403);
+        }
         $user=User::find($id);
         $user->role=request('role');
         $user->save();
@@ -89,38 +99,11 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        if(!Gate::allows('admin')){
+            abort(403);
+        }
         $user=User::find($id);
         $user->delete();
         return redirect()->action([UserController::class, 'index']);
     }
 }
-
-
-// <?php
-
-// namespace App\Http\Controllers;
-
-// use Illuminate\Http\Request;
-// use App\Models\Course;
-// use Illuminate\Support\Facades\Gate;
-
-// class UserController extends Controller
-// {
-//     public function create(){
-//         if(Gate::allows('admin')){
-//             $courses=Course::all();
-//             return view('users.create',['courses'=>$courses]);
-//         }
-//         else
-//         {
-//             abort(403);
-//         }
-//     }
-//     public function store($user){
-//         $data=request()->validate([
-//             'name'=>'required'
-//         ]);
-//         $user->save();
-//         return view('home');
-//       }
-// }

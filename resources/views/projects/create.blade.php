@@ -24,7 +24,7 @@
                     </div>
                     <br>
                     <p>Premendo "Invia" si aprirà la pagina del progetto con il messaggio appena creato.</p>
-                    <input type="submit" value="Invia">
+                    <input type="submit" class="btn btn-primary" value="Invia">
                 </form>
                 <p style="color:red">@error('message'){{ $message="Il messaggio non può essere vuoto." }}@enderror</p>
             </div>

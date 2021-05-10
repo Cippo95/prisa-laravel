@@ -6,6 +6,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use Illuminate\Support\Facades\Gate;
 use App\Models\Course;
 use App\Models\Project;
+use App\Models\Users;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -16,6 +17,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        User::class => UserPolicy::class,
     ];
 
     /**
@@ -34,7 +36,7 @@ class AuthServiceProvider extends ServiceProvider
         //professors can see only courses they teach
         Gate::define('professor-owned', function($user,$course){ 
             $userCourses = Course::whereHas('users', function($query) use ($user){
-                return $query->where('id', $user->id);
+                return $query->where('id', $user->id)->where('role',1);
             })->get();
             return $userCourses->contains('id', $course); 
         });
@@ -55,7 +57,7 @@ class AuthServiceProvider extends ServiceProvider
                 return $userCourses->contains('id', $project->course_id); 
             }
         });
-
+        //admin only routes have this
         Gate::define('admin', function($user){
             if($user->role==0){
                 return true;
@@ -63,6 +65,14 @@ class AuthServiceProvider extends ServiceProvider
             else{
                 return false;
             }
+        });
+        //check if the project is related to professor's courses
+        Gate::define('project-professor', function($user,$id){ 
+            $project=Project::find($id);      
+            $userCourses = Course::whereHas('users', function($query) use ($user){
+                return $query->where('id', $user->id);
+            })->get();
+            return $userCourses->contains('id', $project->course_id); 
         });
     }
 }

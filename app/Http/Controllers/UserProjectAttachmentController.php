@@ -16,7 +16,6 @@ class UserProjectAttachmentController extends Controller
         $attachment->project_id = $project;
         $attachment->user_id = $user;
         $attachment->message = request('message');
-        // $attachment->file = request('file');
         $attachment->save();
         return redirect()->back();        
       }

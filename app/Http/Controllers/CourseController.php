@@ -44,6 +44,10 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
+        if(!Gate::allows('admin')){
+            abort(403);
+        }
+
         $data=request()->validate([
             'name'=>'required'
         ]);
@@ -62,13 +66,7 @@ class CourseController extends Controller
      */
     public function show($id)
     {
-        if(!Gate::allows('admin')){
-            abort(403);
-        }
-        $users = User::whereHas('courses', function($query) use ($id){
-            return $query->where('id', $id);
-        })->where('role','1')->get();        
-        return view('courses.show', ['users'=>$users, 'course'=>$id]);
+        abort(404);
     }
 
     /**
@@ -79,7 +77,7 @@ class CourseController extends Controller
      */
     public function edit($id)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -91,7 +89,7 @@ class CourseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -102,6 +100,9 @@ class CourseController extends Controller
      */
     public function destroy($id)
     {
+        if(!Gate::allows('admin')){
+            abort(403);
+        }
         $course=Course::find($id);
         $course->delete();
         return redirect()->action([CourseController::class, 'index']);
