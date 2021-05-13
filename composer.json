@@ -6,7 +6,9 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "aacotroneo/laravel-saml2": "^2.1",
         "binarytorch/larecipe": "^2.4",
+        "binarytorch/larecipe-dark-theme": "^0.1.5",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",

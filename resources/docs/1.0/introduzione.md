@@ -8,17 +8,23 @@
 ## Introduzione al progetto
 
 Prisa è il mio PRogetto di Ingegneria del Software Avanzata e consiste in una applicazione web per la gestione dei progetti universitari.  
-Di norma gli studenti e i docenti si accordano tramite email per la gestione dei progetti: PRISA è il mio tentativo di sostituire questa metodologia con una applicazione web.   
+Prisa cerca di semplificare la gestione dei progetti universitari, dove di norma gli studenti e i docenti si accordano tramite email, attraverso una applicazione web fatta ad hoc per questa attività.  
 <br>
-È la prima volta che sviluppo una applicazione web e come dovreste aver già notato sto usando il framework Laravel per costruirla.   
-Inizialmente mi ero fatto delle idee e degli schemi della applicazione senza sapere come funzionasse Laravel, soprattutto usando le mie conoscenze acquisite al corso di basi di dati e ingegneria del software avanzata, inserirò la documentazione iniziale perché credo sia interessante vedere come sono cambiate le cose una volta che mi sono scontrato con l'implementazione e come le cose funzionano nella realtà.  
+È la prima volta che sviluppo una applicazione web e mi sono affidato al framework Laravel per costruirla.   
+Inizialmente mi ero fatto delle idee e degli schemi della applicazione senza sapere come funzionasse Laravel, soprattutto usando le mie conoscenze acquisite al corso di basi di dati e ingegneria del software avanzata, inserirò la documentazione iniziale perché credo sia interessante vedere come sono cambiate le cose una volta che mi sono avvicinato all'implementazione scoprendo come le cose funzionino nella realtà.  
 <br>
 Per quanto riguarda l'implementazione: 
-- Ho deciso di fare una implementazione volta alla semplicità, niente funzionalità super complesse, già così ho dovuto e dovrò lavorare molto.
-- Cerco sempre di essere il più possibile aderente alle convenzioni di Laravel per quanto riguarda le convenzioni sul naming. Potete leggerne alcune qui: https://webdevetc.com/blog/laravel-naming-conventions/
-- Ho implementato/implemento una API RESTful come si può vedere del routing delle richieste e i nomi dei metodi usati. Potete leggere qui dei resource controller, anche se in realtà non ho usato propriamente i resource controller ma la struttura usata è la stessa: https://laravel.com/docs/8.x/controllers#resource-controllers
-- Uso le migrazioni per la definizione del database (basato su mysql): https://laravel.com/docs/8.x/migrations
-- Utilizzo query e vincoli sul database attraverso l'ORM Eloquent:https://laravel.com/docs/8.x/eloquent
-- Ho usato blade e bootstrap per avere una interfaccia decente (spero).  
+- Questa applicazione è effettivamente un prototipo, non ho implementato funzionalità particolarmente complesse: già così si è rivelato essere un lavoro abbastanza lungo.
+- Cerco di essere aderente alle convenzioni di Laravel per quanto riguarda il naming. Info qui: https://webdevetc.com/blog/laravel-naming-conventions/
+- Sui seguenti punti potete trovare info nella documentazione ufficiale Laravel:
+    - Implemento le varie route rifacendomi o usando i "resource controller", che dovrebbero seguire una filosofia RESTful. 
+    - Uso le migrazioni (migrations) per la definizione del database (basato su mysql).
+    - Per gestire il DB uso l'ORM "Eloquent".
+    - Per l'autorizzazione a certe route da parte di determinati utenti ho usato i "Gates".  
 
-Alla fine ho imparato ad usare i vari strumenti e linguaggi grazie a vari tutorial (per quanto incompleto e semplice consiglio quello del canale YouTube NetNinja) e leggendo al bisogno la documentazione.
+- Volutamente o non, in certi casi ho usato Laravel in maniera legacy:
+    - Laravel adesso consiglia di installare Laravel Sail per le sue applicazioni: è un nuovo metodo basato su Docker il cui punto di forza sarebbe avere tutte le dipendenze direttamente nel pacchetto piuttosto che essere installate a livello di sistema operativo. La configurazione di questo ambiente non è scritta bene nella documentazione ma anche una volta fatta poi la maggior parte dei tutorial segue il vecchio metodo con composer, visto che inizialmente non sapevo nulla di Laravel ho seguito anche io questa strada.  
+    - Sempre seguendo tutorial ho installato l'autenticazione di Laravel attraverso il package laravel/ui, un pacchetto di fatto legacy che su GitHub consiglierebbe di usare Laravel Breeze o Jetstream al giorno d'oggi. Anche per quanto riguarda l'interfaccia grafica sono partito dalle feature installate con questo pacchetto (più che altro bootstrap).  
+    - Laravel non mi da' la possibilità di usare SAML facilmente, per l'integrazione che ho fatto ho usato un pacchetto su github come consigliato da molti su StackOverflow. Qui il pacchetto: https://github.com/aacotroneo/laravel-saml2
+    
+Alla fine come detto ho imparato ad usare i vari strumenti e linguaggi grazie a vari tutorial (per quanto incompleto e semplice consiglio quello del canale YouTube NetNinja) e leggendo al bisogno la documentazione.

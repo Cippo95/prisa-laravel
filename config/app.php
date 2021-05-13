@@ -161,6 +161,8 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        // //SAML
+        Aacotroneo\Saml2\Saml2ServiceProvider::class,
 
         /*
          * Package Service Providers...

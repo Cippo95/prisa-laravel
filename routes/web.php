@@ -36,10 +36,10 @@ use App\Http\Controllers\CourseUserController;
 Auth::routes();
 
 //Route to root, it triggers login and redirects home
-Route::get('/', [HomeController::class, 'index'])->middleware('auth');
+Route::get('/', [HomeController::class, 'index'])->middleware('auth')->name('home');
 
-//Route to home after login
-Route::get('/home', [HomeController::class, 'index'])->middleware('auth');
+// //Route to home after login
+// Route::get('/home', [HomeController::class, 'index'])->middleware('auth');
 
 //Route to user's courses
 Route::get('/users/{user}/courses', [UserCourseController::class, 'index'])->middleware('auth');
