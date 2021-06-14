@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\Attachment;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
 
 class ProjectAttachmentController extends Controller
@@ -22,5 +23,8 @@ class ProjectAttachmentController extends Controller
         {
             abort(403);
         }
+    }
+    public function show($projectId,$attachmentName){
+        return Storage::download('public/attachments/'.$attachmentName);
     }
 }

@@ -8,6 +8,7 @@ use App\Models\Professor;
 use App\Models\Project;
 use App\Models\Student;
 use App\Models\User;
+use App\Models\Attachment;
 use Faker;
 
 class DatabaseSeeder extends Seeder
@@ -31,6 +32,10 @@ class DatabaseSeeder extends Seeder
         // Let's make a course
         $course1 = Course::create(['name' => 'Fondamenti di intelligenza artificiale']);
         $course2 = Course::create(['name' => 'Ingegneria del software']);
+
+        //Let's make a project for user 1 to course 1
+        $project1 = Project::create(['student_id' => 1, 'course_id' => 1, 'status' => 1]);
+        $attachment1 = Attachment::create(['project_id' => 1,'user_id' => 1,'message' => 'helloworld']);
 
         $course1->users()->attach($user1);
         $course1->users()->attach($user2);

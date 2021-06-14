@@ -31,18 +31,25 @@
                     @else
                     <div class="card-header">DOCENTE: {{ $attachment->user->name }} - {{ \Carbon\Carbon::parse($attachment->created_at)->format('h:m:i d/m/Y') }}</div>
                     @endif
-                    <div class="card-body" style="text-align:left">{{ $attachment->message }}</div>
+                    <div class="card-body" style="text-align:left">
+                        <p class="card-text">{{ $attachment->message }}</p>
+                        @if(!is_null($attachment->file_name))
+                        <a href="/projects/{{ $project[0]->id }}/attachments/{{ $attachment->file_name }}" class="card-link">{{ $attachment->file_name }}</a>
+                        @endif
+                    </div>
                 </div>
                 @endforeach
                 <br>
                 @if($project[0]->status == 1)
-                    <form action="/users/{{ Auth::user()->id }}/projects/{{ $project[0]->id }}/attachments" method="post">
+                    <form action="/users/{{ Auth::user()->id }}/projects/{{ $project[0]->id }}/attachments" method="post" enctype="multipart/form-data">
                         @csrf
                         <label for="message">Aggiungi un messaggio:</label>
                         <br>
                         <textarea name="message" id="message" class="container" rows=10 placeholder="Scrivi un messaggio..."></textarea>
                         <br><br>
-                        <input type="submit" class="btn btn-primary" value="Invia">
+                        Clicca qui per aggiungere un allegato:
+                        <input type="file" name="file"><br><br>
+                        <button type="submit" class="btn btn-primary" value="Invia">Invia</button>
                     </form>
                     <p style="color:red">@error('message'){{ $message="Il messaggio non può essere vuoto." }}@enderror</p>
                 @else

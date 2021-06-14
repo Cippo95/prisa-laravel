@@ -30,7 +30,7 @@ class CreateAttachmentsTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->text('message');
-            // $table->binary('file')->nullable();
+            $table->string('file_name')->nullable();
             $table->timestamps();
         }); 
     }

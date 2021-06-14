@@ -10,3 +10,6 @@
 - ## Documentazione 1.0
     <!-- - [Docs attuali](/{{route}}/{{version}}/overview) -->
     - [Doc. requisiti](/{{route}}/{{version}}/docrequisiti)
+    - [Schema EER](/{{route}}/{{version}}/schemaeer)
+    - [Sch. Relazionale](/{{route}}/{{version}}/schemarelazionale)
+    - [Modello SC-FSM](/{{route}}/{{version}}/modscfsm)

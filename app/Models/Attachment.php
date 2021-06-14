@@ -13,7 +13,7 @@ class Attachment extends Model
         'project_id',
         'user_id',
         'message',
-        'file',
+        'file_name',
     ];
 
     public function project()

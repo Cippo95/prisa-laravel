@@ -70,7 +70,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('project-professor', function($user,$id){ 
             $project=Project::find($id);      
             $userCourses = Course::whereHas('users', function($query) use ($user){
-                return $query->where('id', $user->id);
+                return $query->where('id', $user->id)->where('role',1);
             })->get();
             return $userCourses->contains('id', $project->course_id); 
         });

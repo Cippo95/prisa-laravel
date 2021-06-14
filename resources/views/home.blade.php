@@ -18,7 +18,7 @@
                                 @if (Auth::user()->role == '2')
                                     {{ __('Benvenuto studente!') }}
                                     <br><br>
-                                    <table class="table table-bordered">
+                                    <table class="table table-bordered" dusk="test">
                                         <tr><td><a href="/users/{{ Auth::user()->id }}/projects">Clicca qui per controllare i tuoi progetti</a></td></tr>   
                                         <tr><td><a href="/users/{{ Auth::user()->id }}/courses">Clicca qui per controllare i tuoi corsi</a></td></tr>   
                                     </table>
