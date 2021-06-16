@@ -15,7 +15,7 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->integer('status');
+            $table->integer('status')->default(1);
             //relationship 1:N with students, 'develops' er relation
             $table->unsignedbigInteger('student_id');
             $table->foreign('student_id')

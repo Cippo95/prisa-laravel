@@ -9,32 +9,14 @@ use App\Models\User;
 
 class AuthenticationTest extends DuskTestCase
 {
-    public function setUp(): void
-    {
-        $this->appUrl = env('APP_URL');
-        parent::setUp();
-        $this->artisan('migrate:fresh');
-        $this->artisan('db:seed DatabaseSeeder');
-    }
-
-    /**
-     * A basic browser test example.
-     *
-     * @return void
-     */
-    // public function test_login()
+    // use DatabaseMigrations;
+    
+    // public function setUp(): void
     // {
-    //     $user = User::factory()->create([
-    //         'email' => 'taylor@laravel.com',
-    //     ]);
-
-    //     $this->browse(function ($browser) use ($user) {
-    //         $browser->visit('/login')
-    //                 ->type('email', $user->email)
-    //                 ->type('password', 'password')
-    //                 ->press('Login')
-    //                 ->assertPathIs('/home');
-    //     });
+    //     $this->appUrl = env('APP_URL');
+    //     parent::setUp();
+    //     $this->artisan('migrate:fresh');
+    //     $this->artisan('db:seed DatabaseSeeder');
     // }
 
     public function test_project_ownership()
@@ -54,7 +36,7 @@ class AuthenticationTest extends DuskTestCase
                     ->type('message','hello world')
                     //post
                     ->press('Invia');
-                    //test di allegato
+
             //second user enters, user 2 is a student
             $second->loginAs(User::find(2))
                     ->visit('/home')

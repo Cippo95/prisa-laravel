@@ -44,10 +44,10 @@ Route::get('/home', [HomeController::class, 'index'])->middleware('auth');
 //Route to user's courses _tested no students spying eachother
 Route::get('/users/{user}/courses', [UserCourseController::class, 'index'])->middleware('auth');
 
-//Route to attachments _ntested would need to also seed projects
+//Route to attachments _tested
 Route::get('/projects/{project}/attachments', [ProjectAttachmentController::class, 'index'])->middleware('auth')->name('attachments');
 
-//Route to attachments creation _ntested would need also to seed at least a project
+//Route to attachments creation _tested_auth, _tested_db
 Route::post('/users/{user}/projects/{project}/attachments', [UserProjectAttachmentController::class, 'store'])->middleware('auth');
 
 //STUDENT ROUTES
@@ -57,13 +57,13 @@ Route::get('/users/{user}/projects', [UserProjectController::class, 'index'])->m
 //Route to create a new project _tested no students trying to create for others
 Route::get('/users/{user}/projects/create', [UserProjectController::class, 'create'])->middleware('auth');
 
-//Route to post a new project _tested testing only only gets
+//Route to post a new project _tested_auth _tested_db
 Route::post('/users/{user}/projects', [UserProjectController::class, 'store'])->middleware('auth');
 
 //Route to create a row to the pivot table course_user, this is to chose a course that a student follows _tested
 Route::get('/users/{user}/courses/create', [UserCourseController::class, 'create'])->middleware('auth');
 
-//Route to store the created row to the pivot table course_user, this is to choose a course that a student follows _tested post
+//Route to store the created row to the pivot table course_user, this is to choose a course that a student follows _tested_auth _tested_db
 Route::post('/users/{user}/courses', [UserCourseController::class, 'store'])->middleware('auth');
 
 //PROFESSOR ONLY ROUTES
@@ -71,7 +71,7 @@ Route::post('/users/{user}/courses', [UserCourseController::class, 'store'])->mi
 //Route to projects related to courses _tested
 Route::get('/courses/{course}/projects', [CourseProjectController::class, 'index'])->middleware('auth');
 
-//Route to change project status _nt put
+//Route to change project status _tested
 Route::put('/projects/{project}',[ProjectController::class, 'update'])->middleware('auth');
 
 //ADMIN ONLY ROUTES

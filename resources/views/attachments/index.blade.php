@@ -5,13 +5,13 @@
     @if(Auth::user()->role=='2')
         <a href="/users/{{ Auth::user()->id }}/projects/">Torna ai tuoi progetti</a>
     @elseif(Auth::user()->role=='1')
-        <a href="/courses/{{ $project[0]->course_id }}/projects">Torna ai progetti del corso</a>
+        <a href="/courses/{{ $project->course_id }}/projects">Torna ai progetti del corso</a>
     @endif
     <br><br>
-    <p>Progetto numero: {{ $project[0]->id }} - Corso: {{ $project[0]->course->name }}</p>
+    <p>Progetto numero: {{ $project->id }} - Corso: {{ $project->course->name }}</p>
 
-    @if(Auth::user()->role==1 and $project[0]->status==1)
-    <form action="/projects/{{ $project[0]->id }}" method="POST">
+    @if(Auth::user()->role==1 and $project->status==1)
+    <form action="/projects/{{ $project->id }}" method="POST">
         @csrf
         @method('PUT')
         <input type="hidden" name="concludi" value=0>
@@ -34,14 +34,14 @@
                     <div class="card-body" style="text-align:left">
                         <p class="card-text">{{ $attachment->message }}</p>
                         @if(!is_null($attachment->file_name))
-                        <a href="/projects/{{ $project[0]->id }}/attachments/{{ $attachment->file_name }}" class="card-link">{{ $attachment->file_name }}</a>
+                        <a href="/projects/{{ $project->id }}/attachments/{{ $attachment->file_name }}" class="card-link">{{ $attachment->file_name }}</a>
                         @endif
                     </div>
                 </div>
                 @endforeach
                 <br>
-                @if($project[0]->status == 1)
-                    <form action="/users/{{ Auth::user()->id }}/projects/{{ $project[0]->id }}/attachments" method="post" enctype="multipart/form-data">
+                @if($project->status == 1)
+                    <form action="/users/{{ Auth::user()->id }}/projects/{{ $project->id }}/attachments" method="post" enctype="multipart/form-data">
                         @csrf
                         <label for="message">Aggiungi un messaggio:</label>
                         <br>

@@ -15,7 +15,7 @@
                     </p>
                     <form action="/users/{{ $user->id }}" method="POST">
                         @csrf
-                        @method('PATCH')
+                        @method('PUT')
                         <label for="role">Ruolo:</label>
                         <select name="role" id="role">
                             <option value="2">Studente</option>

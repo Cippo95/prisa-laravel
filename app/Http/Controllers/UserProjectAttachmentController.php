@@ -29,11 +29,14 @@ class UserProjectAttachmentController extends Controller
             //Get just filename
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             //Get just ext
-            $extension = $request->file('file')->getClientOriginalExtension();
+            // $extension = $request->file('file')->getClientOriginalExtension();
+            $extension = $request->file('file')->extension();
             //Filename to store
             $fileNameToStore = $filename.'_'.time().'.'.$extension;
-            //Upload image
-            $path = $request->file('file')->storeAs('public/attachments', $fileNameToStore);
+            //Upload
+            $path = $request->file('file')->storeAs('attachments',$fileNameToStore);
+            // For testing use this and comment the line before, I can't check for a file name as the one before in the test
+            // $path = $request->file('file')->storeAs('attachments',$filenameWithExt);
             //Create attachment
             $attachment = new Attachment();
             $attachment->project_id = $project;

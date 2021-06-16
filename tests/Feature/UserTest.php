@@ -11,13 +11,24 @@ use App\Models\Project;
 
 class UserTest extends TestCase
 {
+    // Old method to ensure migration and seed before run
+    // Now I have put 'protected $seed = true;' in TestCase it works better
+
+    // public function setUp(): void
+    // {
+    //     $this->appUrl = env('APP_URL');
+    //     parent::setUp();
+    //     $this->artisan('migrate:fresh');
+    //     $this->artisan('db:seed DatabaseSeeder');
+    // }
+
     /**
      * A basic feature test example.
      *
      * @return void
      */
 
-    // use RefreshDatabase;
+    use RefreshDatabase;
 
     //non auth user gets redirected
     public function test_redirecting_non_auth_users()
@@ -46,6 +57,10 @@ class UserTest extends TestCase
                         $response = $this->actingAs($user)->get('/users/'.$users[$i]->id.'/courses');
                         $response->assertStatus(403);
                     }
+                    else{
+                        $response = $this->actingAs($user)->get('/users/'.$users[$i]->id.'/courses');
+                        $response->assertStatus(200);
+                    }
                 }
         }
     }
@@ -61,7 +76,11 @@ class UserTest extends TestCase
                     $response = $this->actingAs($user)->get('/projects/'.$project->id.'/attachments');
                     $response->assertStatus(403);
                 }
-                if($user->id != $project->student_id && $user->role == 1){
+                elseif($user->id == $project->student_id && $user->role == 2){
+                    $response = $this->actingAs($user)->get('/projects/'.$project->id.'/attachments');
+                    $response->assertStatus(200);
+                }
+                elseif($user->id != $project->student_id && $user->role == 1){
                     $userCourses = Course::whereHas('users', function($query) use ($user){
                         return $query->where('id', $user->id);
                     })->get();
@@ -75,7 +94,7 @@ class UserTest extends TestCase
                             $response->assertStatus(403);
                         }
                     }
-                }
+                }                            
             }
         }
 
@@ -91,14 +110,19 @@ class UserTest extends TestCase
                     $response = $this->actingAs($user)->post('/users/'.$user->id.'/projects/'.$project->id.'/attachments');
                     $response->assertStatus(403);
                 }
-                if($user->id != $project->student_id && $user->role == 1){
+                elseif($user->id == $project->student_id && $user->role == 2){
+                    $response = $this->actingAs($user)->post('/users/'.$user->id.'/projects/'.$project->id.'/attachments');
+                    //here post gets redirected back so asserts 302
+                    $response->assertStatus(302);
+                }
+                elseif($user->id != $project->student_id && $user->role == 1){
                     $userCourses = Course::whereHas('users', function($query) use ($user){
                         return $query->where('id', $user->id);
                     })->get();
                     foreach($userCourses as $match){
                         if($project->course_id == $match->id){
                             $response = $this->actingAs($user)->post('/users/'.$user->id.'/projects/'.$project->id.'/attachments');
-                            //here it gets redirected back so asserts 302
+                            //here post gets redirected back so asserts 302
                             $response->assertStatus(302);
                         }
                         else{
@@ -123,6 +147,13 @@ class UserTest extends TestCase
                         $response = $this->actingAs($user)->post('/users/'.$users[$i]->id.'/projects');
                         $response->assertStatus(403);
                     }
+                    else{
+                        $response = $this->actingAs($user)->get('/users/'.$users[$i]->id.'/projects');
+                        $response->assertStatus(200);
+                        $response = $this->actingAs($user)->post('/users/'.$users[$i]->id.'/projects');
+                        //here post gets redirected back so asserts 302
+                        $response->assertStatus(302);
+                    }
                 }
         }
     }
@@ -136,6 +167,10 @@ class UserTest extends TestCase
                     if($user->id != $users[$i]->id){
                         $response = $this->actingAs($user)->get('/users/'.$users[$i]->id.'/projects/create');
                         $response->assertStatus(403);
+                    }
+                    else{
+                        $response = $this->actingAs($user)->get('/users/'.$users[$i]->id.'/projects/create');
+                        $response->assertStatus(200);
                     }
                 }
         }
@@ -153,14 +188,20 @@ class UserTest extends TestCase
                         $response = $this->actingAs($user)->post('/users/'.$users[$i]->id.'/courses');
                         $response->assertStatus(403);
                     }
+                    else{
+                        $response = $this->actingAs($user)->get('/users/'.$users[$i]->id.'/courses/create');
+                        $response->assertStatus(200);
+                        $response = $this->actingAs($user)->post('/users/'.$users[$i]->id.'/courses');
+                        $response->assertStatus(200);
+                    }
                 }
         }
     }
 
-    //users 2 and 0 can't use professor's stuff 
+    //users 2 and 0 can't use professor's stuff --old test but I leave it like that to explain stuff
     public function test_users_cant_see_prof_routes()
     {
-        $user = User::where('role','2')->first();
+        $user = User::where('role',2)->first();
         $count = count(Course::all());
         for($i=1;$i<=$count;$i++)
         {
@@ -170,13 +211,11 @@ class UserTest extends TestCase
             $response = $this->actingAs($user)->put('/projects/1');
             $response->assertStatus(403);
         }
-        $user = User::where('role','0')->first();
+        $user = User::where('role',0)->first();
         $count = count(Course::all());
         for($i=1;$i<=$count;$i++)
         {
-            $response = $this->actingAs($user)
-            ->get('/courses/'.Course::find($i).'/projects');
-            
+            $response = $this->actingAs($user)->get('/courses/'.Course::find($i).'/projects');
             $response->assertStatus(403);
         }  
     }
@@ -193,6 +232,10 @@ class UserTest extends TestCase
                     $response = $this->actingAs($user)->get($route);
                     $response->assertStatus(403);
                 }
+                else{
+                    $response = $this->actingAs($user)->get($route);
+                    $response->assertStatus(200);
+                }
             }
         }
         $courses = Course::all();
@@ -204,17 +247,30 @@ class UserTest extends TestCase
                     $response = $this->actingAs($user)->get($route);
                     $response->assertStatus(403);
                 }
+                else{
+                    $response = $this->actingAs($user)->get($route);
+                    $response->assertStatus(200);
+                }
                 //admin: add professors to course
                 $route = '/courses/'.$course->id.'/users/create';
                 if($user->role != 0){
                     $response = $this->actingAs($user)->get($route);
                     $response->assertStatus(403);
                 }
+                else{
+                    $response = $this->actingAs($user)->get($route);
+                    $response->assertStatus(200);
+                }
                 //admin: remove a professor from a course
                 $route = '/courses/'.$course->id.'/users/'.$user->id;
                 if($user->role != 0){
                     $response = $this->actingAs($user)->delete($route);
                     $response->assertStatus(403);
+                }
+                else{
+                    $response = $this->actingAs($user)->delete($route);
+                    //here delete gets redirected
+                    $response->assertStatus(302);
                 }
                 //this is a further test for everyone not only admin
                 $route = '/courses/'.$course->id.'/users/'.$user->id;
@@ -227,17 +283,30 @@ class UserTest extends TestCase
                 $response = $this->actingAs($user)->get($route);
                 $response->assertStatus(403);
             }
+            else{
+                $response = $this->actingAs($user)->get($route);
+                $response->assertStatus(200);
+            }
             //admin: save change role to user
             $route = '/users/'.$user->id;
             if($user->role != 0){
                 $response = $this->actingAs($user)->put($route);
                 $response->assertStatus(403);
             }
-            //admin: save change role to user
+            else{
+                $response = $this->actingAs($user)->put($route,['role'=>0]);
+                $response->assertStatus(302);
+                // $response->dump();
+            }
+            //admin: delete user
             $route = '/users/'.$user->id;
             if($user->role != 0){
                 $response = $this->actingAs($user)->delete($route);
                 $response->assertStatus(403);
+            }
+            else{
+                $response = $this->actingAs($user)->delete($route);
+                $response->assertStatus(302);
             }
             //admin: create a course
             $route = '/courses/create';
@@ -245,11 +314,19 @@ class UserTest extends TestCase
                 $response = $this->actingAs($user)->get($route);
                 $response->assertStatus(403);
             }
+            else{
+                $response = $this->actingAs($user)->get($route);
+                $response->assertStatus(200);
+            }
             //admin: save a course
             $route = '/courses';
             if($user->role != 0){
                 $response = $this->actingAs($user)->post($route);
                 $response->assertStatus(403);
+            }
+            else{
+                $response = $this->actingAs($user)->post($route);
+                $response->assertStatus(302);
             }
         }
     }
@@ -261,7 +338,37 @@ class UserTest extends TestCase
                         $response = $this->actingAs($user)->post('/users/'.$users[$i]->id.'/courses');
                         $response->assertStatus(403);
                     }
+                    else{
+                        $response = $this->actingAs($user)->post('/users/'.$users[$i]->id.'/courses');
+                        $response->assertStatus(200);
+                    }
                 }
+        }
+    }
+    public function test_prof_can_close_projects(){
+        $users = User::all(); 
+        $projects = Project::all();  
+        $courses = Course::all();
+        foreach($projects as $project){
+            foreach($users as $user){
+                if($user->role == 1){
+                    $userCourses = Course::whereHas('users', function($query) use ($user){
+                        return $query->where('id', $user->id);
+                    })->get();
+                    foreach($userCourses as $match){
+                        if($project->course_id == $match->id){
+                            $response = $this->actingAs($user)->put('/projects/'.$project->id,['status'=>0]);
+                            $response->assertStatus(302);
+                            // $response -> dump();
+                        }
+                        else{
+                            $response = $this->actingAs($user)->put('/projects/'.$project->id,['status'=>0]);
+                            $response->assertStatus(403);
+                        }
+                    }   
+
+                }
+            }
         }
     }
 }

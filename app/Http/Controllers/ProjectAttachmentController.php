@@ -16,7 +16,7 @@ class ProjectAttachmentController extends Controller
         if(Gate::allows('can-see-attachments',$id))
         {
             $attachments = Attachment::where('project_id', $id)->get();
-            $project = Project::where('id', $id)->get();
+            $project = Project::find($id);
             return view('attachments.index',['attachments'=>$attachments, 'project' => $project]);
         }
         else
