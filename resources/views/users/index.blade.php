@@ -5,7 +5,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <h1>Utenti registrati</h1>
-                    <a href="/">Clicca qui per tornare alla home</a>
+                    <a href="/home">Torna alla home</a>
                     <br><br>
                     <p>Elenco degli utenti registrati:</p>
                     <table class="table table-bordered" style="text-align:left">

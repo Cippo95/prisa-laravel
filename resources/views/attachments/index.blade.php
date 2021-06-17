@@ -27,9 +27,9 @@
                 @foreach($attachments as $attachment)
                 <div class="card">
                     @if ($attachment->user->role==2)
-                    <div class="card-header">STUDENTE:{{ $attachment->user_id}} - {{ $attachment->user->name }} - {{ \Carbon\Carbon::parse($attachment->created_at)->format('h:m:i d/m/Y') }}</div>
+                    <div class="card-header">STUDENTE:{{ $attachment->user_id}} - {{ $attachment->user->name }} - {{ \Carbon\Carbon::parse($attachment->created_at)->format('H:i:s d/m/Y') }}</div>
                     @else
-                    <div class="card-header">DOCENTE: {{ $attachment->user->name }} - {{ \Carbon\Carbon::parse($attachment->created_at)->format('h:m:i d/m/Y') }}</div>
+                    <div class="card-header">DOCENTE: {{ $attachment->user->name }} - {{ \Carbon\Carbon::parse($attachment->created_at)->format('H:i:s d/m/Y') }}</div>
                     @endif
                     <div class="card-body" style="text-align:left">
                         <p class="card-text">{{ $attachment->message }}</p>
@@ -47,7 +47,7 @@
                         <br>
                         <textarea name="message" id="message" class="container" rows=10 placeholder="Scrivi un messaggio..."></textarea>
                         <br><br>
-                        Clicca qui per aggiungere un allegato:
+                        Clicca qui per aggiungere un allegato (max 2000KB):
                         <input type="file" name="file"><br><br>
                         <button type="submit" class="btn btn-primary" value="Invia">Invia</button>
                     </form>

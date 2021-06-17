@@ -5,7 +5,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <h1>Modifica Utente</h1>
-                    <a href="/users">Clicca qui per tornare indietro</a><br><br>
+                    <a href="/users">Torna agli utenti</a><br><br>
                     <p>Qui puoi assegnare il ruolo:</p>
                     <p>Attualmente {{ $user->name }} è un
                     @if($user->role==2)studente

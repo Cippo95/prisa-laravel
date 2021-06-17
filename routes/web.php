@@ -36,10 +36,10 @@ use App\Http\Controllers\CourseUserController;
 Auth::routes();
 
 //Route to root, it triggers login and redirects home _tested redirection
-Route::get('/', [HomeController::class, 'index'])->middleware('auth')->name('home');
+Route::get('/', [HomeController::class, 'index'])->middleware('auth');
 
 //Route to home after login _tested redirection
-Route::get('/home', [HomeController::class, 'index'])->middleware('auth');
+Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
 
 //Route to user's courses _tested no students spying eachother
 Route::get('/users/{user}/courses', [UserCourseController::class, 'index'])->middleware('auth');

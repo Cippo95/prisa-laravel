@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <h1>Creazione Corso</h1>
-                <a href="/courses">Per tornare ai corsi clicca qui</a>
+                <a href="/courses">Torna ai corsi</a>
                 <br><br>
                 Inserisci il nome del corso:
                 <br><br>

@@ -3,7 +3,7 @@
 <div style="text-align:center">
     @if(Auth::user()->role==2)
     <h1>I tuoi progetti:</h1>
-    <a href="\">Torna alla home</a>
+    <a href="/home">Torna alla home</a>
     <br><br>
     <p>Clicca su uno dei progetti per accedere ai messaggi</p>
     <div class="container">

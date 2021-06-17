@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <h1>Assegnamento Corso a Docente</h1>
-                <a href="/courses/{{ $course }}/users">Clicca qui per tornare indietro</a><br><br>
+                <a href="/courses/{{ $course }}/users">Torna indietro</a><br><br>
                 <p>Scegli il docente del corso:</p>
                 <form action="/courses/{{ $course }}/users" method="POST">
                     @csrf

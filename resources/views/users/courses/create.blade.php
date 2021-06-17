@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <a href="/users/{{ Auth::user()->id }}/courses">Clicca qui per tornare indietro</a><br><br>
+                <a href="/users/{{ Auth::user()->id }}/courses">Torna ai corsi</a><br><br>
                     <label for="course">Scegli un corso che segui:</label><br>
                     <form action="/users/{{ Auth::user()->id }}/courses/" method="POST">
                         @csrf

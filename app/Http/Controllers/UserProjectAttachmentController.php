@@ -14,15 +14,19 @@ class UserProjectAttachmentController extends Controller
         if(!Gate::allows('can-see-attachments',$project)){
              abort(403);
         }
-        // $data=request()->validate([
-        //     'message'=>'required',
-        //     'file' => 'nullable|max:1999'
-        // ]);
+
         $this->validate($request,[
             'message'=>'required',
             'file' => 'nullable|max:1999'
         ]);
-        //Handle file upload
+
+        //Create attachment
+        $attachment = new Attachment();
+        $attachment->project_id = $project;
+        $attachment->user_id = $user;
+        $attachment->message = request('message');
+
+        //Check if file upload
         if($request->hasFile('file')){
             //Get filename with extension
             $filenameWithExt = $request -> file('file')->getClientOriginalName();
@@ -35,22 +39,15 @@ class UserProjectAttachmentController extends Controller
             $fileNameToStore = $filename.'_'.time().'.'.$extension;
             //Upload
             $path = $request->file('file')->storeAs('attachments',$fileNameToStore);
-            // For testing use this and comment the line before, I can't check for a file name as the one before in the test
+
+            // FOR TESTING UPLOAD USE THIS AND COMMENT LINE BEFORE: I can't check for a file modified as in the test
             // $path = $request->file('file')->storeAs('attachments',$filenameWithExt);
-            //Create attachment
-            $attachment = new Attachment();
-            $attachment->project_id = $project;
-            $attachment->user_id = $user;
-            $attachment->message = request('message');
+
+            // Save file name for retrieving
             $attachment->file_name = $fileNameToStore;
         }
-        else{
-            //Create attachment
-            $attachment = new Attachment();
-            $attachment->project_id = $project;
-            $attachment->user_id = $user;
-            $attachment->message = request('message');
-        }
+
+        //save to db
         $attachment->save();
         return redirect()->back();        
       }
