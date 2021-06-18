@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <h1>Docenti del corso</h1>
-                <a href="/courses/">Clicca qui per tornare indietro.</a><br><br>
+                <a href="/courses">Torna ai corsi</a><br><br>
                 <p>Elenco dei docenti del corso</p>
                 <a href="/courses/{{ $course }}/users/create">Clicca qui per aggiungere docenti al corso</a>
                 <br><br>

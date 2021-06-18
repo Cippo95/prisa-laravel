@@ -55,7 +55,7 @@ class CourseController extends Controller
         $course = new Course();
         $course->name = $request->name;
         $course->save();
-        return redirect()->action([CourseController::class, 'index']);
+        return redirect('/courses');
     }
 
     /**
@@ -105,6 +105,6 @@ class CourseController extends Controller
         }
         $course=Course::find($id);
         $course->delete();
-        return redirect()->action([CourseController::class, 'index']);
+        return redirect('/courses');
     }
 }

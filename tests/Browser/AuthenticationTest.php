@@ -11,13 +11,13 @@ class AuthenticationTest extends DuskTestCase
 {
     // use DatabaseMigrations;
     
-    // public function setUp(): void
-    // {
-    //     $this->appUrl = env('APP_URL');
-    //     parent::setUp();
-    //     $this->artisan('migrate:fresh');
-    //     $this->artisan('db:seed DatabaseSeeder');
-    // }
+    public function setUp(): void
+    {
+        $this->appUrl = env('APP_URL');
+        parent::setUp();
+        $this->artisan('migrate:fresh');
+        $this->artisan('db:seed DatabaseSeeder');
+    }
 
     public function test_project_ownership()
     {

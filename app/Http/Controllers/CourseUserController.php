@@ -49,7 +49,7 @@ class CourseUserController extends Controller
         }
         $course = Course::find($courseId);
         $course->users()->attach(request('user'));
-        return redirect()->action([CourseUserController::class, 'index'], ['course'=>$courseId]);
+        return redirect('/courses/'.$courseId.'/users');
     }
 
 }

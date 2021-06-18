@@ -88,7 +88,6 @@ class UserController extends Controller
         $user=User::find($id);
         $user->role=request('role');
         $user->save();
-        // return redirect()->action([UserController::class, 'index']);
         return redirect('/users');
     }
 
@@ -105,7 +104,6 @@ class UserController extends Controller
         }
         $user=User::find($id);
         $user->delete();
-        // return redirect()->action([UserController::class, 'index']);
         return redirect('/users');
     }
 }

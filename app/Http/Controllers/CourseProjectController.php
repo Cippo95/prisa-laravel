@@ -14,6 +14,6 @@ class CourseProjectController extends Controller
             abort(403);
         }
         $projects = Project::where('course_id', $id)->OrderBy('status','desc')->get();
-        return view('projects.index',['projects'=>$projects]);
+        return view('projects.index',compact('projects'));
     }
 }

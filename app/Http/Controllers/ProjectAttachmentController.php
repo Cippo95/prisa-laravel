@@ -13,18 +13,20 @@ class ProjectAttachmentController extends Controller
 {
     public function index($id)
     {
-        if(Gate::allows('can-see-attachments',$id))
-        {
-            $attachments = Attachment::where('project_id', $id)->get();
-            $project = Project::find($id);
-            return view('attachments.index',['attachments'=>$attachments, 'project' => $project]);
-        }
-        else
+        if(!Gate::allows('can-see-attachments',$id))
         {
             abort(403);
         }
+        $attachments = Attachment::where('project_id', $id)->get();
+        $project = Project::find($id);
+        return view('attachments.index', compact('attachments'), compact('project'));
     }
+    
     public function show($projectId,$attachmentName){
-        return Storage::download('public/attachments/'.$attachmentName);
+        if(!Gate::allows('can-see-attachments',$projectId))
+        {
+            abort(403);
+        }
+        return Storage::download('attachments/'.$attachmentName);
     }
 }

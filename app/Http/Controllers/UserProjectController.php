@@ -17,7 +17,7 @@ class UserProjectController extends Controller
             abort(403);
         }
         $projects = Project::where('student_id', $id)->orderBy('status','desc')->get();
-        return view('projects.index',['projects'=>$projects]);
+        return view('projects.index',compact('projects'));
     }
 
     public function create($id){
@@ -43,13 +43,12 @@ class UserProjectController extends Controller
         $project = new Project();
         $project->student_id = $id;
         $project->course_id = request('course');
-        $project->status = 1;
         $project->save();
         $attachment = new Attachment();
         $attachment->project_id = $project->id;
         $attachment->user_id = $id;
         $attachment->message = request('message');
         $attachment->save();
-        return redirect()->route('attachments',['project'=>$project->id]);
+        return redirect('/projects/'.$project->id.'/attachments');
       }
 }

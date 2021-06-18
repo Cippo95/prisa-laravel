@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <h1>Corsi</h1>
-                <a href="\">Torna alla home</a>
+                <a href="/home">Torna alla home</a>
                 <br><br>
 
                 @if(Auth::user()->role==2)
