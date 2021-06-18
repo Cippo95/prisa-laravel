@@ -3,8 +3,6 @@
 ---
 
 - [Introduzione al progetto](#section-1)
-- [Tecnologie e conoscenze teoriche](#section-2)
-- [Breve panoramica e considerazioni](#section-3)
 
 <a name="section-1"></a>
 ## Introduzione al progetto
@@ -12,13 +10,11 @@
 Prisa è il mio PRogetto di Ingegneria del Software Avanzata (e la mia prima applicazione web).
 È una applicazione pensata per semplificare la gestione dei progetti universitari: di norma gli studenti e i docenti si accordano tramite email, l'idea è che forse una applicazione apposita risulterebbe più ordinata.
 
-<a name="section-2"></a>
 ### Tecnologie e conoscenze teoriche
 L'applicazione è basata sul framework Laravel, un framework PHP.
 Ho suddiviso i documenti in due versioni, la prima è relativa agli schemi che avevo fatto senza sapere come funzionasse Laravel, avevo usato solo le mie conoscenze acquisite dal corso di basi di dati e ingegneria del software avanzata, la seconda è relativa all'implementazione finale.
 Credo che sia interessante vedere come siano cambiate le cose poiché (soprattutto parlando del database) ho scoperto diverse divergenze sulla teoria che avevo studiato in precedenza.
 
-<a name="section-3"></a>
 ### Breve panoramica e considerazioni
 - Questa applicazione è effettivamente un prototipo, non ho implementato funzionalità particolarmente complesse e già così si è rivelato essere un lavoro abbastanza lungo.
 - Cerco di essere aderente alle convenzioni di Laravel per quanto riguarda il naming. 
