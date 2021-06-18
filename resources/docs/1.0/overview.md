@@ -19,7 +19,7 @@ Ho suddiviso i documenti in due versioni, la prima è relativa agli schemi che a
 Credo che sia interessante vedere come siano cambiate le cose poiché (soprattutto parlando del database) ho scoperto diverse divergenze sulla teoria che avevo studiato in precedenza.
 
 <a name="section-3"></a>
-###Breve panoramica e considerazioni
+### Breve panoramica e considerazioni
 - Questa applicazione è effettivamente un prototipo, non ho implementato funzionalità particolarmente complesse e già così si è rivelato essere un lavoro abbastanza lungo.
 - Cerco di essere aderente alle convenzioni di Laravel per quanto riguarda il naming. 
 Info qui: https://webdevetc.com/blog/laravel-naming-conventions/
@@ -43,7 +43,7 @@ Info qui: https://webdevetc.com/blog/laravel-naming-conventions/
     Info su laravel/ui qui:https://github.com/laravel/ui
     - Laravel non mi da' la possibilità di usare SAML facilmente, per l'integrazione che ho fatto ho usato un pacchetto su github come consigliato da molti su StackOverflow. 
     Sarebbe un pacchetto scritto per Laravel 5 ma funziona anche su versioni successive (io uso Laravel 8).
-    Questa implementazione è di fatto solo un prototipo in quanto fino a che non posso collegare l'applicazione a un IDP non ha senso svilupparla ulteriormente (l'IDP passa degli attributi che servirebbero alla applicazione ma senza di essi come testo l'applicazione? avrei l'applicazione spaccata a metà).  
+    Questa implementazione è di fatto solo un prototipo in quanto fino a che non posso collegare l'applicazione all'IDP dell'università non ha senso svilupparla ulteriormente (l'IDP passa degli attributi che servirebbero alla applicazione ma senza di essi come testo l'applicazione? avrei l'applicazione spaccata a metà).  
     Qui il pacchetto: https://github.com/aacotroneo/laravel-saml2
     
 Alla fine come detto ho imparato ad usare i vari strumenti e linguaggi grazie a vari tutorial, discussioni online e leggendo al bisogno la documentazione (all'inizio non è facile leggere la documentazione, bisogna avere una minima base prima di farlo secondo me).
