@@ -1,3 +1,17 @@
+## Progetto di Ingegneria del Sofware Avanzata - Filippo Landi matr.121120
+
+Trovate tutta la documentazione dentro l'applicazione all'indirizzo "localhost/docs".
+
+Se siete alle prime armi con Laravel sappiate che oltre a scaricare il progetto dovrete creare un file .env (copiatelo da .env.example) e installare Laravel in qualche modo, per fare questo esistono due modi:
+- La vecchia maniera dove le dipendenze (dbms etc.) vanno installate manualmente.
+- Usando Laravel Sail che è una versione containerizzata con docker di Laravel (anche qui necessità di un po' di setup).
+
+In ogni caso consiglio di consultare la documentazione ufficiale di Laravel, anche se spesso non dice tutte le cose in maniera completa, per esempio se usate Sail dovrete installare docker in modalità rootless (consiglio anche in questo caso di guardare la documentazione di docker).
+
+La cosa complessa in questo progetto è l'integrazione con SAML, se non vi interessa commentate le righe di configurazione nel vostro file .env così da ignorare questa integrazione.
+
+Buona fortuna!
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
